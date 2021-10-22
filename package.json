@@ -1,0 +1,6 @@
+{
+  "homepage": "https://srwins.github.io/livewins",
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
+}
