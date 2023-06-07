@@ -1,2 +1,2 @@
 # livewins
-[página do narigudo](https://vitormachado96.github.io/livewins/)
+[Página de Acesso](https://vitormachado96.github.io/livewins/)
