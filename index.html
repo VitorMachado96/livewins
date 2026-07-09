@@ -245,6 +245,11 @@
       background: rgba(0, 0, 0, 0.03);
     }
 
+    .ptab:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
     .ptab:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: -2px;
@@ -589,7 +594,7 @@
           <button class="ptab" id="tab-amazon" role="tab" aria-selected="true" aria-controls="tool-panel"
             data-platform="amazon">Amazon</button>
           <button class="ptab" id="tab-ml" role="tab" aria-selected="false" aria-controls="tool-panel"
-            data-platform="mercadolivre">Mercado Livre</button>
+            data-platform="mercadolivre" disabled>Mercado Livre</button>
         </div>
 
         <!-- Input + CTA -->
@@ -597,9 +602,7 @@
           <label class="field-label" for="url-input">Link do produto</label>
           <input id="url-input" type="url" class="url-input" placeholder="https://www.amazon.com.br/..."
             autocomplete="off" spellcheck="false" aria-describedby="url-error" />
-          <p class="field-error" id="url-error" role="alert" aria-live="assertive">
-            Insira um link válido antes de continuar.
-          </p>
+          <p class="field-error" id="url-error" role="alert" aria-live="assertive"></p>
 
           <button class="btn-generate" id="btn-generate">
             <span id="btn-text">Gerar link</span>
@@ -703,12 +706,23 @@
         errMsg.classList.remove('visible');
       }
 
-      function showError() {
+      function showError(msg) {
+        errMsg.textContent = msg || 'Insira um link válido antes de continuar.';
         input.classList.add('is-error');
         errMsg.classList.add('visible');
       }
 
       input.addEventListener('input', clearError);
+
+      var amazonHosts = /^(www\.)?amazon\.com(\.br)?$|^amzn\.to$|^a\.co$/;
+
+      function isAmazonUrl(raw) {
+        try {
+          return amazonHosts.test(new URL(raw).hostname);
+        } catch (e) {
+          return false;
+        }
+      }
 
       /* ── Build affiliate URL ─────────────────── */
       function buildUrl(raw) {
@@ -728,7 +742,13 @@
         var raw = input.value.trim();
 
         if (!raw) {
-          showError();
+          showError('Insira um link antes de continuar.');
+          input.focus();
+          return;
+        }
+
+        if (platform === 'amazon' && !isAmazonUrl(raw)) {
+          showError('O link deve ser de uma página da Amazon.');
           input.focus();
           return;
         }
