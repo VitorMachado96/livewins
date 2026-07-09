@@ -1,123 +1,768 @@
-<html lang="pt_BR" class="">
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    
-            <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-            crossorigin="anonymous"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <title>Srwins amazon</title>
-        <style>
-            body {
-                background-image: url("./srwins/bod.jpg");
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-position: center;
-            }
-    
-            .footer {
-                color: white;
-                bottom: 0;
-                position: center fixed;
-                width: 100%;
-    
-            }
-    
-            .img {
-                overflow: hidden;
-    
-            }
-    
-            .img img {
-    
-                -webkit-transition: -webkit-transform .5s ease;
-                transition: transform .5s ease;
-            }
-    
-            .img:hover img {
-                -webkit-transform: scale(1.1);
-                transform: scale(1.1);
-            }
-        </style>
-    
-    <body style="text-align: -webkit-center">
-    
-        <div class="wrapper">
-    
-            <!-- Sidebar -->
-    
-            <!-- End Sidebar -->
-    
-            <div class="main-panel ml-auto mr-auto" style="text-align: -webkit-center">
-                <div class="page-inner">
-                    <img src="./srwins/srwins.png" alt="Inscreva-se" width="645" height="277" target="_blank">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm">
-                                <!-- conteudo aqui -->
-                                <div class="card">
-                                    <div class="card-header" style=" text-align: -webkit-center">
-    
-                                        <h5>Salve minhas coisas lindas S2</h5>
-                                        <div class="alert alert-primary"><b>Este é o meu link de indicação da amazon, eu
-                                                ganho e você ganha também. Quando você fizer o pagamento do produto entre em
-                                                contato comigo no meu facebook ou instagram.</b> </div>
-                                        <div class="img">
-                                            <a href="https://www.instagram.com/srwinsoficial/"><img
-                                                    src="./srwins/instagram.png" width="52" height="52"
-                                                    class="media-object mb-2 mt-3"></a>
-                                            &nbsp; &nbsp; &nbsp;
-                                            <a href="https://www.facebook.com/SrWins-106468584102686"><img
-                                                    src="./srwins/facebook.png" width="52" height="52"
-                                                    class="media-object mb-2 mt-3"></a>
-    
-                                        </div>
-                                    </div>
-    
-                                    <div class="card-body" style="text-align: -webkit-center">
-                                        <div class="form-group" style="width: 750px">
-                                            <div class="input-icon">
-                                                <span class="input-icon-addon">
-                                                    <i class="fa fa-shopping-bag"></i>
-                                                </span>
-                                                <input id="url" type="text" class="form-control"
-                                                    placeholder="https://www.amazon.com.br/Link amazon...">
-                                            </div>
-    
-                                            <button class="openurl btn btn-success btn-sm mt-3 mb-2">
-                                                <span class="btn-label">
-                                                    <i class="fa fa-link"></i>
-                                                </span>
-                                                GERAR LINK
-                                            </button>
-                                            <br>
-                                            <small id="emailHelp2" class="form-text text-muted"><i>É só pegar o link do
-                                                    produto na amazon, colar acima e gerar o novo link.
-                                                </i> </small>
-                                        </div>
-                                    </div>
-    
-    
-                                    <script>
-                                        $(document).ready(function () {
-                                            $(".openurl").click(function () {
-                                                window.open($("#url").val() + "&tag=srwins-20", '_blank');
-                                            });
-                                        });
-                                    </script>
-                                </div>
-                                <footer class="footer">
-    
-                                    <a href="https://www.twitch.tv/srwins"><button
-                                            style="background: #6441a5; border-radius: 6px; padding: 15px; cursor: pointer; color: #fff; border: none; font-size: 16px;">
-                                            <h4>Live SRWINS</h4>
-                                        </button></a>
-    
-                                </footer>
-    </body>
-    
-    </html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SrWins — Links de Afiliado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── Design tokens ─────────────────────────── */
+    :root {
+      --bg: #F4F2EE;
+      --surface: #FFFFFF;
+      --surface-hi: #EDEBE6;
+      --accent: #E8502B;
+      --accent-dim: rgba(232, 80, 43, 0.09);
+      --accent-text: #FFFFFF;
+      --text: #1C1A18;
+      --muted: #787068;
+      --border: rgba(0, 0, 0, 0.1);
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 14px rgba(0, 0, 0, 0.07);
+      --error: #DC2626;
+      --error-glow: rgba(220, 38, 38, 0.1);
+      --twitch: #6441A5;
+      --twitch-hi: #7B54BF;
+
+      --f-display: 'Plus Jakarta Sans', sans-serif;
+      --f-body: 'Plus Jakarta Sans', sans-serif;
+      --f-mono: 'IBM Plex Mono', monospace;
+    }
+
+    /* ── Reset ──────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--f-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+    }
+
+    /* ── Layout wrapper ─────────────────────────── */
+    .wrap {
+      max-width: 640px;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+    }
+
+    /* ── Header ─────────────────────────────────── */
+    .site-header {
+      padding-block: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .site-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header-socials {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      list-style: none;
+    }
+
+    .header-socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: background 0.18s, border-color 0.18s;
+    }
+
+    .header-socials a:hover {
+      background: var(--surface-hi);
+      border-color: var(--accent);
+    }
+
+    .header-socials a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 50%;
+    }
+
+    .header-socials img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .header-socials .twitch-mark {
+      fill: #9147FF;
+    }
+
+    /* ── Hero ───────────────────────────────────── */
+    .hero {
+      padding-block: 5rem 4.5rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline {
+      font-family: var(--f-display);
+      font-size: clamp(2.75rem, 9vw, 4.75rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--accent);
+      border: none;
+      margin-inline: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-inline: auto;
+    }
+
+    .hero-body {
+      max-width: 420px;
+      margin-inline: auto;
+      color: var(--muted);
+      font-size: 0.9375rem;
+      line-height: 1.75;
+    }
+
+    /* ── Tool card ───────────────────────────────── */
+    .tool-section {
+      padding-bottom: 4rem;
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    /* Platform tabs */
+    .platform-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ptab {
+      padding: 1rem 0.75rem;
+      font-family: var(--f-display);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      position: relative;
+      transition: color 0.18s, background 0.18s;
+    }
+
+    .ptab::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.22s;
+    }
+
+    .ptab[aria-selected="true"] {
+      color: var(--accent);
+      background: var(--surface-hi);
+    }
+
+    .ptab[aria-selected="true"]::after {
+      transform: scaleX(1);
+    }
+
+    .ptab:hover:not([aria-selected="true"]) {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .ptab:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    /* Tool body */
+    .tool-body {
+      padding: 1.75rem;
+    }
+
+    .field-label {
+      display: block;
+      font-family: var(--f-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .url-input {
+      display: block;
+      width: 100%;
+      padding: 0.8125rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--f-mono);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      caret-color: var(--accent);
+    }
+
+    .url-input::placeholder {
+      color: var(--muted);
+      opacity: 0.55;
+    }
+
+    .url-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+
+    .url-input.is-error {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px var(--error-glow);
+    }
+
+    .field-error {
+      margin-top: 0.375rem;
+      font-family: var(--f-mono);
+      font-size: 0.6875rem;
+      color: var(--error);
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* Generate button */
+    .btn-generate {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.9375rem 1rem;
+      background: var(--accent);
+      color: var(--accent-text);
+      font-family: var(--f-display);
+      font-size: 0.9375rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-generate:hover {
+      background: #D94420;
+      transform: translateY(-1px);
+    }
+
+    .btn-generate:active {
+      transform: translateY(0);
+    }
+
+    .btn-generate:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .btn-generate:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-generate.is-win {
+      animation: win-burst 0.72s ease forwards;
+    }
+
+    @keyframes win-burst {
+      0% {
+        background: var(--accent);
+        letter-spacing: 0.06em;
+      }
+
+      20% {
+        background: #FF8C72;
+        letter-spacing: 0.16em;
+      }
+
+      50% {
+        background: var(--accent);
+        letter-spacing: 0.06em;
+      }
+
+      100% {
+        background: var(--accent);
+        letter-spacing: 0.06em;
+      }
+    }
+
+    .tool-hint {
+      margin-top: 0.875rem;
+      font-family: var(--f-mono);
+      font-size: 0.6875rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    /* ── Steps ─────────────────────────────────── */
+    .steps-section {
+      padding-bottom: 5rem;
+    }
+
+    .steps-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .steps-row {
+      display: grid;
+      grid-template-columns: 1fr 28px 1fr 28px 1fr;
+      align-items: start;
+      gap: 0;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-num {
+      display: block;
+      font-family: var(--f-mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.625rem;
+    }
+
+    .step-title {
+      font-family: var(--f-display);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.375rem;
+    }
+
+    .step-desc {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .step-sep {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 1.125rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+      opacity: 0.45;
+      user-select: none;
+    }
+
+    /* ── Footer ─────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding-block: 3rem;
+      text-align: center;
+    }
+
+    .twitch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8125rem 1.625rem;
+      background: var(--twitch);
+      color: #fff;
+      font-family: var(--f-display);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border-radius: 8px;
+      transition: background 0.18s;
+      margin-bottom: 2rem;
+    }
+
+    .twitch-btn:hover {
+      background: var(--twitch-hi);
+    }
+
+    .twitch-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .twitch-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-socials a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-family: var(--f-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: color 0.18s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--text);
+    }
+
+    .footer-socials a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .footer-socials img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+      opacity: 0.55;
+    }
+
+    .footer-credit {
+      font-family: var(--f-mono);
+      font-size: 0.625rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      opacity: 0.4;
+      text-transform: uppercase;
+    }
+
+    /* ── Accessibility & motion ──────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    /* ── Mobile ──────────────────────────────────── */
+    @media (max-width: 560px) {
+      .hero {
+        padding-block: 3.5rem 3rem;
+      }
+
+      .steps-row {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .step-sep {
+        display: none;
+      }
+
+      .tool-body {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Hero ─────────────────────────────────── -->
+  <section class="hero" aria-label="Apresentação">
+    <div class="wrap">
+      <p class="hero-eyebrow">
+        <img src="./srwins/logo.png" alt="SrWins" />
+      </p>
+      <h1 class="hero-headline">
+        Compre.<br /><em>Ganhe.</em> Juntos.
+      </h1>
+      <hr class="hero-rule" />
+      <p class="hero-body">
+        Use meu link de indicação da Amazon ou Mercado Livre
+        e nos dois saímos ganhando. Cole o link do produto,
+        gere seu link e aproveite.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Tool ──────────────────────────────────── -->
+  <section class="tool-section" aria-label="Gerador de link">
+    <div class="wrap">
+      <div class="tool-card">
+
+        <!-- Platform selector -->
+        <div class="platform-tabs" role="tablist" aria-label="Plataforma">
+          <button class="ptab" id="tab-amazon" role="tab" aria-selected="true" aria-controls="tool-panel"
+            data-platform="amazon">Amazon</button>
+          <button class="ptab" id="tab-ml" role="tab" aria-selected="false" aria-controls="tool-panel"
+            data-platform="mercadolivre">Mercado Livre</button>
+        </div>
+
+        <!-- Input + CTA -->
+        <div class="tool-body" id="tool-panel" role="tabpanel">
+          <label class="field-label" for="url-input">Link do produto</label>
+          <input id="url-input" type="url" class="url-input" placeholder="https://www.amazon.com.br/..."
+            autocomplete="off" spellcheck="false" aria-describedby="url-error" />
+          <p class="field-error" id="url-error" role="alert" aria-live="assertive">
+            Insira um link válido antes de continuar.
+          </p>
+
+          <button class="btn-generate" id="btn-generate">
+            <span id="btn-text">Gerar link</span>
+          </button>
+
+          <p class="tool-hint">
+            O link abre direto com minha tag de afiliado &mdash; sem custo extra pra você.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How it works ──────────────────────────── -->
+  <section class="steps-section" aria-label="Como funciona">
+    <div class="wrap">
+      <p class="steps-eyebrow">como funciona</p>
+      <div class="steps-row">
+        <div class="step">
+          <span class="step-num">01</span>
+          <p class="step-title">Copie o link</p>
+          <p class="step-desc">Encontre o produto na Amazon ou Mercado Livre e copie o endereço.</p>
+        </div>
+        <div class="step-sep" aria-hidden="true">→</div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <p class="step-title">Cole e gere</p>
+          <p class="step-desc">Escolha a plataforma, cole o link aqui e clique em Gerar link.</p>
+        </div>
+        <div class="step-sep" aria-hidden="true">→</div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <p class="step-title">Compre e ganha</p>
+          <p class="step-desc">O produto abre com minha tag. Você compra normalmente e a gente ganha junto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <a href="https://www.twitch.tv/srwins" class="twitch-btn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z" />
+        </svg>
+        Live na Twitch
+      </a>
+
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/srwinsoficial/" target="_blank" rel="noopener noreferrer">
+          <img src="./srwins/instagram.png" alt="" />&hairsp;@srwinsoficial
+        </a>
+        <a href="https://www.facebook.com/SrWins-106468584102686" target="_blank" rel="noopener noreferrer">
+          <img src="./srwins/facebook.png" alt="" />&hairsp;SrWins
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var btn = document.getElementById('btn-generate');
+      var btnText = document.getElementById('btn-text');
+      var input = document.getElementById('url-input');
+      var errMsg = document.getElementById('url-error');
+      var tabs = document.querySelectorAll('.ptab');
+
+      var platform = 'amazon';
+      var placeholders = {
+        amazon: 'https://www.amazon.com.br/...',
+        mercadolivre: 'https://www.mercadolivre.com.br/...'
+      };
+
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ── Tab switching ─────────────────────────── */
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+          tab.setAttribute('aria-selected', 'true');
+          platform = tab.dataset.platform;
+          input.placeholder = placeholders[platform];
+          clearError();
+        });
+      });
+
+      /* ── Error helpers ─────────────────────────── */
+      function clearError() {
+        input.classList.remove('is-error');
+        errMsg.classList.remove('visible');
+      }
+
+      function showError() {
+        input.classList.add('is-error');
+        errMsg.classList.add('visible');
+      }
+
+      input.addEventListener('input', clearError);
+
+      /* ── Build affiliate URL ─────────────────── */
+      function buildUrl(raw) {
+        if (platform === 'amazon') {
+          return raw.includes('?') ? raw + '&tag=srwins-20' : raw + '?tag=srwins-20';
+        }
+        // Mercado Livre
+        var u = new URL(raw);
+        u.searchParams.set('matt_tool', 'affiliate');
+        u.searchParams.set('matt_word', 'srwins');
+        return u.toString();
+      }
+
+      /* ── Generate click ──────────────────────── */
+      btn.addEventListener('click', function () {
+        var raw = input.value.trim();
+
+        if (!raw) {
+          showError();
+          input.focus();
+          return;
+        }
+
+        var finalUrl;
+        try {
+          finalUrl = buildUrl(raw);
+        } catch (e) {
+          showError();
+          input.focus();
+          return;
+        }
+
+        btn.disabled = true;
+
+        if (prefersReducedMotion) {
+          window.open(finalUrl, '_blank');
+          btn.disabled = false;
+          return;
+        }
+
+        /* WIN flash */
+        var prev = btnText.textContent;
+        btnText.textContent = 'WIN!';
+        btn.classList.add('is-win');
+
+        setTimeout(function () {
+          window.open(finalUrl, '_blank');
+          btnText.textContent = prev;
+          btn.classList.remove('is-win');
+          btn.disabled = false;
+        }, 720);
+      });
+
+      /* ── Enter key shortcut ──────────────────── */
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') btn.click();
+      });
+    })();
+  </script>
+</body>
+
+</html>
