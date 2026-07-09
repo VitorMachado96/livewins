@@ -678,16 +678,21 @@
         amazon: 'https://www.amazon.com.br/...',
         mercadolivre: 'https://www.mercadolivre.com.br/...'
       };
-
+      var mlLink = "https://www.mercadolivre.com.br/social/srwins?matt_word=machadovitor20231023155400&matt_tool=80349020&forceInApp=true&ref=BGElRAbpoCknjI0x7ehmxjbUAo4S4rGTiI2IDk0M3Xis19Kr%2BeWK3qQrsbo%2FnV9Rt75Gn4mBt5U%2FCV9UJDxRnLuWlZm45DyKNi7TRU%2Bqvs0V6Smd%2FU3JtISM9BWUgVKk1tLSq0fPRcs9ukIozoKU0dIz6ktjdkkHYUx7Bd8lAB0nO0Hof%2FkWXmNZCkvYyVcGCPEDbgE%3D";
       var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       /* ── Tab switching ─────────────────────────── */
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
-          tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
-          tab.setAttribute('aria-selected', 'true');
-          platform = tab.dataset.platform;
-          input.placeholder = placeholders[platform];
+          if (tab.dataset.platform === 'mercadolivre') {
+            // open mlLink in new tab when ml is selected
+            window.open(mlLink, '_blank');
+          } else {
+            platform = tab.dataset.platform;
+            tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+            tab.setAttribute('aria-selected', 'true');
+            input.placeholder = placeholders[platform];
+          }
           clearError();
         });
       });
@@ -711,10 +716,11 @@
           return raw.includes('?') ? raw + '&tag=srwins-20' : raw + '?tag=srwins-20';
         }
         // Mercado Livre
-        var u = new URL(raw);
-        u.searchParams.set('matt_tool', '80349020'); //affiliate
-        u.searchParams.set('matt_word', 'machadovitor20231023155400');
-        return u.toString();
+        // var u = new URL(raw);
+        // u.searchParams.set('matt_tool', '80349020'); //affiliate
+        // u.searchParams.set('matt_word', 'machadovitor20231023155400');
+        // return u.toString();
+        return mlLink;
       }
 
       /* ── Generate click ──────────────────────── */
