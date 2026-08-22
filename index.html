@@ -594,7 +594,7 @@
           <button class="ptab" id="tab-amazon" role="tab" aria-selected="true" aria-controls="tool-panel"
             data-platform="amazon">Amazon</button>
           <button class="ptab" id="tab-ml" role="tab" aria-selected="false" aria-controls="tool-panel"
-            data-platform="mercadolivre" disabled>Mercado Livre</button>
+            data-platform="mercadolivre">Mercado Livre</button>
         </div>
 
         <!-- Input + CTA -->
@@ -681,21 +681,20 @@
         amazon: 'https://www.amazon.com.br/...',
         mercadolivre: 'https://www.mercadolivre.com.br/...'
       };
-      var mlLink = "https://www.mercadolivre.com.br/social/srwins?matt_word=machadovitor20231023155400&matt_tool=80349020&forceInApp=true&ref=BGElRAbpoCknjI0x7ehmxjbUAo4S4rGTiI2IDk0M3Xis19Kr%2BeWK3qQrsbo%2FnV9Rt75Gn4mBt5U%2FCV9UJDxRnLuWlZm45DyKNi7TRU%2Bqvs0V6Smd%2FU3JtISM9BWUgVKk1tLSq0fPRcs9ukIozoKU0dIz6ktjdkkHYUx7Bd8lAB0nO0Hof%2FkWXmNZCkvYyVcGCPEDbgE%3D";
-      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var affiliateEndpoint = 'https://n8n.correa.dev/webhook/affiliate-generate-link';
+      var apiKey = 'rodrigoitj';
+      var affiliateTags = {
+        amazon: 'rodrigoitj08-20',
+        mercadolivre: 'ridrogoxd'
+      };
 
       /* ── Tab switching ─────────────────────────── */
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
-          if (tab.dataset.platform === 'mercadolivre') {
-            // open mlLink in new tab when ml is selected
-            window.open(mlLink, '_blank');
-          } else {
-            platform = tab.dataset.platform;
-            tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
-            tab.setAttribute('aria-selected', 'true');
-            input.placeholder = placeholders[platform];
-          }
+          platform = tab.dataset.platform;
+          tabs.forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+          tab.setAttribute('aria-selected', 'true');
+          input.placeholder = placeholders[platform];
           clearError();
         });
       });
@@ -714,31 +713,75 @@
 
       input.addEventListener('input', clearError);
 
-      var amazonHosts = /^(www\.)?amazon\.com(\.br)?$|^amzn\.to$|^a\.co$/;
+      var platformHosts = {
+        amazon: /^(www\.)?amazon\.com(\.br)?$|^amzn\.to$|^a\.co$/,
+        mercadolivre: /^(?:[a-z0-9-]+\.)*mercadolivre\.com\.br$/i
+      };
 
-      function isAmazonUrl(raw) {
+      function isPlatformUrl(raw) {
         try {
-          return amazonHosts.test(new URL(raw).hostname);
+          var url = new URL(raw);
+          return (url.protocol === 'http:' || url.protocol === 'https:') &&
+            platformHosts[platform].test(url.hostname);
         } catch (e) {
           return false;
         }
       }
 
-      /* ── Build affiliate URL ─────────────────── */
-      function buildUrl(raw) {
-        if (platform === 'amazon') {
-          return raw.includes('?') ? raw + '&tag=srwins-20' : raw + '?tag=srwins-20';
+      function extractAffiliateUrl(payload) {
+        if (typeof payload === 'string') return payload;
+        if (Array.isArray(payload)) return payload.length ? extractAffiliateUrl(payload[0]) : '';
+        if (!payload || typeof payload !== 'object') return '';
+
+        var keys = ['short_url', 'long_url', 'link', 'affiliateLink', 'affiliate_url'];
+        for (var i = 0; i < keys.length; i++) {
+          if (payload[keys[i]] && payload[keys[i]] !== '') return extractAffiliateUrl(payload[keys[i]]);
         }
-        // Mercado Livre
-        // var u = new URL(raw);
-        // u.searchParams.set('matt_tool', '80349020'); //affiliate
-        // u.searchParams.set('matt_word', 'machadovitor20231023155400');
-        // return u.toString();
-        return mlLink;
+        return payload.data ? extractAffiliateUrl(payload.data) : '';
+      }
+
+      async function requestAffiliateUrl(raw) {
+        var response = await fetch(affiliateEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey
+          },
+          body: JSON.stringify({
+            platform: platform,
+            link: raw,
+            tag: affiliateTags[platform]
+          })
+        });
+
+        var responseText = await response.text();
+        if (!response.ok) {
+          var responseSummary = responseText.replace(/[\u0000-\u001F\u007F]/g, ' ').trim().slice(0, 200);
+          throw new Error(
+            'Affiliate request failed (' + response.status + ' ' + response.statusText + ')' +
+            (responseSummary ? ': ' + responseSummary : '')
+          );
+        }
+
+        var payload;
+        try {
+          payload = JSON.parse(responseText);
+        } catch (e) {
+          payload = responseText;
+        }
+
+        var finalUrl = extractAffiliateUrl(payload);
+        try {
+          var parsedUrl = new URL(finalUrl);
+          if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') throw new Error('Invalid URL');
+        } catch (e) {
+          throw new Error('Invalid affiliate URL');
+        }
+        return finalUrl;
       }
 
       /* ── Generate click ──────────────────────── */
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', async function () {
         var raw = input.value.trim();
 
         if (!raw) {
@@ -747,40 +790,26 @@
           return;
         }
 
-        if (platform === 'amazon' && !isAmazonUrl(raw)) {
-          showError('O link deve ser de uma página da Amazon.');
-          input.focus();
-          return;
-        }
-
-        var finalUrl;
-        try {
-          finalUrl = buildUrl(raw);
-        } catch (e) {
-          showError();
+        if (!isPlatformUrl(raw)) {
+          showError('O link deve ser de uma página da plataforma selecionada.');
           input.focus();
           return;
         }
 
         btn.disabled = true;
+        btnText.textContent = 'Gerando...';
 
-        if (prefersReducedMotion) {
-          window.open(finalUrl, '_blank');
-          btn.disabled = false;
-          return;
+        try {
+          var finalUrl = await requestAffiliateUrl(raw);
+          window.location.href = finalUrl;
+        } catch (e) {
+          showError('Não foi possível gerar o link. Tente novamente.');
+          console.error('Affiliate link generation failed:', e);
+          input.focus();
         }
 
-        /* WIN flash */
-        var prev = btnText.textContent;
-        btnText.textContent = 'WIN!';
-        btn.classList.add('is-win');
-
-        setTimeout(function () {
-          window.open(finalUrl, '_blank');
-          btnText.textContent = prev;
-          btn.classList.remove('is-win');
-          btn.disabled = false;
-        }, 720);
+        btnText.textContent = 'Gerar link';
+        btn.disabled = false;
       });
 
       /* ── Enter key shortcut ──────────────────── */
